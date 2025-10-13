@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Угадай имена по эмодзи</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+  <div class="brand" data-i18n="appTitle">✨ Угадай имена по эмодзи</div>
+  <button id="openHintBtn" class="btn subtle" data-i18n="openHint">Подсказка</button>
+</header>
+
+<!-- Окно 1 -->
+<section id="winSetup" class="window">
+  <h2 data-i18n="win1Title">Шаг 1. Введите имена и выберите эмодзи</h2>
+  <div id="setupList" class="grid"></div>
+  <div class="footer">
+    <button id="acceptBtn" class="btn primary" data-i18n="accept">Принять</button>
+  </div>
+</section>
+
+<!-- Окно 2 -->
+<section id="winQuiz" class="window hidden">
+  <h2 data-i18n="win2Title">Шаг 2. Сопоставьте имена по эмодзи</h2>
+  <div id="quizList" class="grid drop-zone"></div>
+  <div class="name-pool" id="namePool"></div>
+  <div class="footer">
+    <button id="checkBtn" class="btn success" data-i18n="check">Проверить</button>
+    <button id="backBtn" class="btn subtle" data-i18n="back">Назад</button>
+  </div>
+</section>
+
+<!-- Модалка подсказки -->
+<div id="hintModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 data-i18n="hintTitle">Подсказка</h3>
+      <button id="hintClose" class="icon-btn">✖</button>
+    </div>
+    <div class="modal-body" data-i18n="hintText">
+      Введите имена и выберите для них эмодзи. Затем попробуйте вспомнить имена по выбранным картинкам.
+    </div>
+  </div>
+</div>
+
+<!-- Модалка результата -->
+<div id="resultModal" class="modal hidden">
+  <div class="modal-card result-card">
+    <img id="resultGif" src="assets/cool.gif" alt="result" class="result-gif" />
+    <h3 id="resultTitle" data-i18n="allCorrectTitle">Круто!</h3>
+    <p id="resultText" data-i18n="allCorrectText"></p>
+    <button id="resultClose" class="btn primary" data-i18n="close">Закрыть</button>
+  </div>
+</div>
+
+<!-- Модалка выбора эмодзи -->
+<div id="emojiModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 data-i18n="chooseEmoji">Выберите эмодзи</h3>
+      <button id="emojiClose" class="icon-btn">✖</button>
+    </div>
+    <div id="emojiGrid" class="emoji-grid"></div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
