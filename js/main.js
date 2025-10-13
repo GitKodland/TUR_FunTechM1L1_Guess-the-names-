@@ -1,7 +1,7 @@
 import { EmojiPicker } from "./emojiPicker.js";
 import { UI } from "./ui.js";
 import { Game } from "./game.js";
-import { applyTranslations, t } from "./lang.js"; // <-- добавлено
+import { applyTranslations, t } from "./lang.js";
 
 const ui = new UI();
 const game = new Game();
@@ -36,7 +36,7 @@ function init() {
   // --- Принять ---
   document.getElementById("acceptBtn").addEventListener("click", () => {
     const pairs = ui.getSetupData();
-    if (!pairs.length) return alert("Введите хотя бы одно имя с эмодзи!");
+    if (!pairs.length) return alert(t("needAll") || "Введите хотя бы одно имя с эмодзи!");
 
     savedPairs = pairs;
     game.setPairs(pairs);
@@ -74,6 +74,15 @@ function initDragDrop(pairs) {
   const pool = document.getElementById("namePool");
   const slots = document.querySelectorAll(".drop-slot");
 
+  // === Всегда отображаем область возврата ===
+  pool.classList.add("drop-area-visible");
+  if (!pool.querySelector(".drop-hint")) {
+    const hint = document.createElement("div");
+    hint.className = "drop-hint";
+    hint.innerHTML = "⬇️ Перетащи карточку обратно сюда";
+    pool.appendChild(hint);
+  }
+
   const createCard = (name) => {
     const card = document.createElement("div");
     card.className = "card";
@@ -87,17 +96,21 @@ function initDragDrop(pairs) {
   const addDragListeners = (card) => {
     card.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", e.target.dataset.name);
+      e.stopPropagation();
       card.classList.add("dragging");
+      pool.classList.add("active");
     });
-    card.addEventListener("dragend", () => {
+    card.addEventListener("dragend", (e) => {
+      e.stopPropagation();
       card.classList.remove("dragging");
+      pool.classList.remove("active");
     });
   };
 
-  // назначить d&d всем карточкам в пуле
+  // добавить d&d всем карточкам в пуле
   pool.querySelectorAll(".card").forEach(addDragListeners);
 
-  // функции для очистки и вставки карточек
+  // вставка карточки в слот
   function placeCardInSlot(slot, name) {
     slot.dataset.assigned = name;
     slot.innerHTML = `<div class="emoji">${slot.dataset.emoji}</div>`;
@@ -106,12 +119,13 @@ function initDragDrop(pairs) {
     slot.appendChild(innerCard);
   }
 
+  // очистка слота
   function clearSlot(slot) {
     slot.innerHTML = `<div class="emoji">${slot.dataset.emoji}</div>`;
     delete slot.dataset.assigned;
   }
 
-  // обработка зон
+  // === обработка СЛОТОВ ===
   slots.forEach(slot => {
     slot.addEventListener("dragover", e => {
       e.preventDefault();
@@ -122,50 +136,76 @@ function initDragDrop(pairs) {
 
     slot.addEventListener("drop", e => {
       e.preventDefault();
+      e.stopPropagation();
       slot.classList.remove("active");
 
       const name = e.dataTransfer.getData("text/plain");
       if (!name) return;
 
-      // если слот уже занят другим — вернуть старую вниз
+      // если слот уже занят тем же именем — выходим
+      if (slot.dataset.assigned === name) return;
+
+      // если слот занят другим — вернуть старую карточку вниз
       const current = slot.dataset.assigned;
-      if (current && current !== name) {
-        const oldCard = createCard(current);
-        pool.appendChild(oldCard);
+      if (current && current !== name && !pool.querySelector(`[data-name="${current}"]`)) {
+        pool.appendChild(createCard(current));
       }
 
-      // удалить карточку из пула, если она там
-      const dragged = document.querySelector(`.card[data-name="${name}"]`);
-      if (dragged) dragged.remove();
+      // удалить карточку из пула (если она там)
+      const draggedFromPool = pool.querySelector(`.card[data-name="${name}"]`);
+      if (draggedFromPool) draggedFromPool.remove();
 
-      // установить новую карточку
+      // удалить дублирующие карточки из других слотов
+      [...slots].forEach(s => {
+        if (s !== slot && s.dataset.assigned === name) clearSlot(s);
+      });
+
+      // вставить карточку
       placeCardInSlot(slot, name);
     });
   });
 
-  // возврат карточки вниз
-  pool.addEventListener("dragover", e => e.preventDefault());
+  // === обработка ОБЛАСТИ ВОЗВРАТА ===
+  pool.addEventListener("dragover", e => {
+    e.preventDefault();
+    pool.classList.add("active");
+  });
+
+  pool.addEventListener("dragleave", () => pool.classList.remove("active"));
+
   pool.addEventListener("drop", e => {
     e.preventDefault();
+    e.stopPropagation();
+    pool.classList.remove("active");
+
     const name = e.dataTransfer.getData("text/plain");
     if (!name) return;
 
-    // найти слот, где эта карточка стояла
+    // найти слот, где карточка стояла
     const usedSlot = [...slots].find(s => s.dataset.assigned === name);
-    if (usedSlot) {
-      clearSlot(usedSlot);
-    }
+    if (usedSlot) clearSlot(usedSlot);
 
-    // вернуть карточку вниз, если её ещё нет
+    // если карточка уже есть в пуле — не дублируем
     if (!pool.querySelector(`.card[data-name="${name}"]`)) {
-      const card = createCard(name);
-      pool.appendChild(card);
+      // удалить подсказку, потом вернуть её в конец
+      const hint = pool.querySelector(".drop-hint");
+      if (hint) hint.remove();
+
+      pool.appendChild(createCard(name));
+
+      // вернуть подсказку обратно (чтобы всегда была видна)
+      const newHint = document.createElement("div");
+      newHint.className = "drop-hint";
+      newHint.innerHTML = "⬇️ Перетащи карточку обратно сюда";
+      pool.appendChild(newHint);
     }
   });
 }
 
+
+
 /* === СТАРТ === */
 document.addEventListener("DOMContentLoaded", () => {
-  applyTranslations(); // <-- применяем переводы при старте
+  applyTranslations();
   init();
 });
