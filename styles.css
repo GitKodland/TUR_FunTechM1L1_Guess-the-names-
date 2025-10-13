@@ -114,10 +114,38 @@ body {
   cursor: pointer;
 }
 
+/* === Сетка выбора эмодзи === */
 .emoji-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* теперь сетка в ширину */
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  max-width: 500px;  /* расширили по горизонтали */
+  margin: 0 auto;
+}
+
+/* сами эмодзи — крупнее, с ховером */
+.emoji-grid button {
+  font-size: 30px;
+  background: #1f1f25;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.emoji-grid button:hover {
+  background: #292932;
+  border-color: #00e0ff;
+  transform: scale(1.1);
+}
+
+.emoji-grid button.used {
+  opacity: 0.4;
+  pointer-events: none;
 }
 .emoji-item {
   font-size: 28px;
