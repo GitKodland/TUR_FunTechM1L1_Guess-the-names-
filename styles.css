@@ -307,3 +307,23 @@ body {
   opacity: 1;
   color: #00e1ff;
 }
+
+.app-footer {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 25px;
+  padding-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.app-footer:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.windows {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - 80px); /* чтобы футер был ближе к низу, но в пределах окна */
+}
