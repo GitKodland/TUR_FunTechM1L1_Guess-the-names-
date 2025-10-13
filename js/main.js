@@ -34,20 +34,50 @@ function init() {
   document.getElementById("hintClose").addEventListener("click", () => ui.hintModal.classList.add("hidden"));
 
   // --- Принять ---
-  document.getElementById("acceptBtn").addEventListener("click", () => {
-    const pairs = ui.getSetupData();
-    if (!pairs.length) return alert(t("needAll") || "Введите хотя бы одно имя с эмодзи!");
+document.getElementById("acceptBtn").addEventListener("click", () => {
+  // Собираем все 10 строк (включая пустые) для подсветки по индексам
+  const allRows = [...ui.setupList.querySelectorAll(".row")].map((r, i) => ({
+    index: i,
+    name: r.querySelector(".name-input").value.trim(),
+    emoji: r.querySelector(".emoji-selected").dataset.emoji || ""
+  }));
 
-    savedPairs = pairs;
-    game.setPairs(pairs);
+  // Оставляем только заполненные пары
+  const pairs = allRows.filter(p => p.name && p.emoji);
+  if (!pairs.length) {
+    alert("Введите хотя бы одно имя с эмодзи!");
+    return;
+  }
 
-    const shuffled = game.shuffledPairs();
-    ui.renderQuizDragDrop(shuffled);
-    ui.toQuiz();
-    ui.updateHint(pairs, "quiz");
-
-    initDragDrop(shuffled);
+  // === Проверка дублей имён (без регистра и лишних пробелов)
+  const map = new Map(); // normName -> [indexes]
+  allRows.forEach(p => {
+    if (!p.name) return;
+    const norm = p.name.toLowerCase();
+    if (!map.has(norm)) map.set(norm, []);
+    map.get(norm).push(p.index);
   });
+
+  const dupIndexes = [...map.values()].filter(arr => arr.length > 1).flat();
+  if (dupIndexes.length) {
+    ui.markSetupErrors(dupIndexes);
+    alert("Имена должны быть уникальны. Пожалуйста, исправьте повторы.");
+    return;
+  }
+  ui.clearSetupErrors();
+
+  // всё ок — продолжаем
+  savedPairs = pairs;
+  game.setPairs(pairs);
+
+  const shuffled = game.shuffledPairs();
+  ui.renderQuizDragDrop(shuffled);
+  ui.toQuiz();
+  ui.updateHint(pairs, "quiz");
+
+  initDragDrop(shuffled);
+});
+
 
   // --- Назад ---
   document.getElementById("backBtn").addEventListener("click", () => {

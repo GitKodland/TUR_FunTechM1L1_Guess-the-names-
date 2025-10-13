@@ -355,3 +355,9 @@ body {
   justify-content: space-between;
   min-height: calc(100vh - 80px); /* чтобы футер был ближе к низу, но в пределах окна */
 }
+
+.row.error {
+  border: 2px solid #ff5757;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(255, 87, 87, 0.5);
+}
