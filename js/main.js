@@ -61,7 +61,7 @@ document.getElementById("acceptBtn").addEventListener("click", () => {
   const dupIndexes = [...map.values()].filter(arr => arr.length > 1).flat();
   if (dupIndexes.length) {
     ui.markSetupErrors(dupIndexes);
-    alert("Имена должны быть уникальны. Пожалуйста, исправьте повторы.");
+    alert(t("duplicateNames"));
     return;
   }
   ui.clearSetupErrors();
