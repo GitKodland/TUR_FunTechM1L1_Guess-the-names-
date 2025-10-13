@@ -1,4 +1,7 @@
-const EMOJIS = ["🦊","🐻","🐱","🐶","🤖","🛸","🎨","⚽","🎸","📚"];
+const EMOJIS = [
+  "🦊", "🐻", "🐱", "🐶", "🤖", "🛸", "🎨", "⚽", "🎸",
+  "🎮","🚀", "🎧", "💐", "🪞", "🐰"
+];
 
 export class EmojiPicker {
   constructor({gridEl, modalEl, onSelect, onClose}) {
