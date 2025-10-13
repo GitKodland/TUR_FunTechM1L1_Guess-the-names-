@@ -3,35 +3,34 @@
 
 export const TEXTS = {
   base: {
-    appTitle: "Guess the Names by Emoji",
-    openHint: "Hint",
-    win1Title: "Step 1. Enter names and choose emojis",
-    win1Note: "Enter names (you can use fewer than 10). Each emoji will be linked to a name.",
-    chooseEmoji: "Choose an emoji",
-    hintTitle: "Hint",
-    hintText: "Enter names and assign an emoji to each. Then try to remember the names by emojis.",
-    accept: "Accept",
-    win2Title: "Step 2. Match names to emojis",
-    check: "Check",
-    back: "Back",
-    close: "Close",
-    allCorrectTitle: "Awesome!",
-    allCorrectText: "All answers are correct 🎉",
-    someWrongTitle: "There are mistakes",
-    someWrongText: "Check the highlighted rows. Correct names are shown next to them.",
+    appTitle: "Угадай имена по эмодзи",
+    openHint: "Подсказка",
+    win1Title: "Шаг 1. Введите имена и выберите эмодзи",
+    win1Note: "Введите имена (можно меньше 10). Эмодзи закрепляется за именем.",
+    chooseEmoji: "Выберите эмодзи",
+    hintTitle: "Подсказка",
+    hintText: "Введите имена и выберите для них эмодзи. Затем попробуйте вспомнить имена по эмодзи.",
+    accept: "Принять",
+    win2Title: "Шаг 2. Сопоставьте имена по эмодзи",
+    check: "Проверить",
+    back: "Назад",
+    close: "Закрыть",
+    allCorrectTitle: "Круто!",
+    allCorrectText: "Все ответы верные 🎉",
+    someWrongTitle: "Есть ошибки",
+    someWrongText: "Проверьте подсвеченные строки. Правильные имена показаны рядом.",
     modalHintBodySetup: `
-      Enter names and assign emojis to them.<br>
-      Then, in the second window, drag and drop name cards onto the matching emojis.
+      Введите имена и выберите для них эмодзи.<br>
+      Затем, во втором окне, перетаскивайте карточки имён к картинкам-эмодзи.
     `,
     modalHintBodyQuizIntro: `
-      <p><b>Hint:</b> here’s what you entered earlier:</p>
+      <p><b>Подсказка:</b> вот, что вы вводили в начале:</p>
     `,
     modalHintBodyQuizOutro: `
-      <p style="font-size:14px;opacity:.7;">Drag each name card to the matching emoji.</p>
+      <p style="font-size:14px;opacity:.7;">Перетащи карточку с именем к соответствующему эмодзи.</p>
     `,
   },
 };
-
 
 
 
