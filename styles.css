@@ -23,33 +23,34 @@ body {
   margin: 40px auto;
   padding: 25px 30px;
   border-radius: 24px;
-
-  /* 🎨 Стеклянный фон */
-  background: rgba(15, 20, 30, 0.85);
+  background: rgba(15, 20, 30, 0.90);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-
-  /* 🌌 Мягкая внутренняя и внешняя глубина */
   box-shadow:
     0 0 25px rgba(0, 200, 255, 0.25),
     inset 0 0 25px rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-
-  overflow: hidden; /* чтобы блюр не выходил за границы */
+  overflow: visible;
 }
 
-/* === Светящийся блюр по краям === */
+/* 🌈 Гладкий неоновый блюр вокруг блока */
 .app::before {
   content: "";
   position: absolute;
-  inset: -30px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: inherit;
+  pointer-events: none;
   background: radial-gradient(
     circle at center,
-    rgba(0, 200, 255, 0.15),
+    rgba(0, 200, 255, 0.3) 0%,
+    rgba(0, 200, 255, 0.15) 30%,
     transparent 70%
   );
-  filter: blur(35px);
+  transform: scale(1.15); /* чуть больше блока — для мягкого края */
+  filter: blur(40px);
   z-index: -1;
 }
 
@@ -404,4 +405,20 @@ body {
 .row:hover {
   background: rgba(35, 40, 55, 0.45);
   border-color: rgba(255, 255, 255, 0.15);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-start; /* или center, если нужно по центру */
+  align-items: center;
+  gap: 12px; /* 🔹 расстояние между кнопками */
+  margin-top: 10px; /* 🔹 чуть опустить вниз */
+}
+
+.footer .btn {
+  margin-top: 8px; /* лёгкий визуальный отступ вниз */
+}
+
+#acceptBtn {
+  margin-top: 12px;
 }
