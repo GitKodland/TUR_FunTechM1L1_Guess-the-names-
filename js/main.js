@@ -45,8 +45,8 @@ document.getElementById("acceptBtn").addEventListener("click", () => {
   // Оставляем только заполненные пары
   const pairs = allRows.filter(p => p.name && p.emoji);
   if (!pairs.length) {
-    alert("Введите хотя бы одно имя с эмодзи!");
-    return;
+     alert(t("needOnePair"));
+     return;
   }
 
   // === Проверка дублей имён (без регистра и лишних пробелов)
@@ -104,15 +104,7 @@ function initDragDrop(pairs) {
   const pool = document.getElementById("namePool");
   const slots = document.querySelectorAll(".drop-slot");
 
-  // === Всегда отображаем область возврата ===
-  pool.classList.add("drop-area-visible");
-  if (!pool.querySelector(".drop-hint")) {
-    const hint = document.createElement("div");
-    hint.className = "drop-hint";
-    hint.innerHTML = "⬇️ Перетащи карточку обратно сюда";
-    pool.appendChild(hint);
-  }
-
+  // Создание карточки
   const createCard = (name) => {
     const card = document.createElement("div");
     card.className = "card";
@@ -123,39 +115,36 @@ function initDragDrop(pairs) {
     return card;
   };
 
+  // Слушатели для карточек
   const addDragListeners = (card) => {
     card.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", e.target.dataset.name);
-      e.stopPropagation();
+      e.dataTransfer.setData("text/plain", card.dataset.name);
       card.classList.add("dragging");
-      pool.classList.add("active");
     });
-    card.addEventListener("dragend", (e) => {
-      e.stopPropagation();
+
+    card.addEventListener("dragend", () => {
       card.classList.remove("dragging");
-      pool.classList.remove("active");
     });
   };
 
-  // добавить d&d всем карточкам в пуле
+  // Инициализация карточек
   pool.querySelectorAll(".card").forEach(addDragListeners);
 
-  // вставка карточки в слот
+  // Размещение карточки в слот
   function placeCardInSlot(slot, name) {
     slot.dataset.assigned = name;
     slot.innerHTML = `<div class="emoji">${slot.dataset.emoji}</div>`;
     const innerCard = createCard(name);
-    innerCard.style.marginTop = "3px";
     slot.appendChild(innerCard);
   }
 
-  // очистка слота
+  // Очистка слота
   function clearSlot(slot) {
     slot.innerHTML = `<div class="emoji">${slot.dataset.emoji}</div>`;
     delete slot.dataset.assigned;
   }
 
-  // === обработка СЛОТОВ ===
+  // --- Основная логика drop в слоты ---
   slots.forEach(slot => {
     slot.addEventListener("dragover", e => {
       e.preventDefault();
@@ -166,71 +155,63 @@ function initDragDrop(pairs) {
 
     slot.addEventListener("drop", e => {
       e.preventDefault();
-      e.stopPropagation();
       slot.classList.remove("active");
 
-      const name = e.dataTransfer.getData("text/plain");
+      const dragged = document.querySelector(".card.dragging");
+      if (!dragged) return; // защита от посторонних элементов
+
+      const name = dragged.dataset.name;
       if (!name) return;
 
-      // если слот уже занят тем же именем — выходим
+      // если в слоте уже есть это имя — ничего не делаем
       if (slot.dataset.assigned === name) return;
 
-      // если слот занят другим — вернуть старую карточку вниз
+      // если в слоте было другое имя — вернуть обратно в пул
       const current = slot.dataset.assigned;
-      if (current && current !== name && !pool.querySelector(`[data-name="${current}"]`)) {
-        pool.appendChild(createCard(current));
+      if (current && current !== name) {
+        const oldCard = createCard(current);
+        pool.appendChild(oldCard);
       }
 
-      // удалить карточку из пула (если она там)
-      const draggedFromPool = pool.querySelector(`.card[data-name="${name}"]`);
-      if (draggedFromPool) draggedFromPool.remove();
+      // удалить перетаскиваемую карточку из пула
+      dragged.remove();
 
-      // удалить дублирующие карточки из других слотов
-      [...slots].forEach(s => {
-        if (s !== slot && s.dataset.assigned === name) clearSlot(s);
-      });
-
-      // вставить карточку
+      // вставить новую в слот
       placeCardInSlot(slot, name);
     });
   });
 
-  // === обработка ОБЛАСТИ ВОЗВРАТА ===
-  pool.addEventListener("dragover", e => {
-    e.preventDefault();
-    pool.classList.add("active");
-  });
-
-  pool.addEventListener("dragleave", () => pool.classList.remove("active"));
+  // --- Возврат карточек вниз ---
+  pool.addEventListener("dragover", e => e.preventDefault());
 
   pool.addEventListener("drop", e => {
     e.preventDefault();
-    e.stopPropagation();
-    pool.classList.remove("active");
+    const dragged = document.querySelector(".card.dragging");
+    if (!dragged) return;
 
-    const name = e.dataTransfer.getData("text/plain");
+    const name = dragged.dataset.name;
     if (!name) return;
 
     // найти слот, где карточка стояла
     const usedSlot = [...slots].find(s => s.dataset.assigned === name);
     if (usedSlot) clearSlot(usedSlot);
 
-    // если карточка уже есть в пуле — не дублируем
+    // если такой карточки нет в пуле — вернуть
     if (!pool.querySelector(`.card[data-name="${name}"]`)) {
-      // удалить подсказку, потом вернуть её в конец
-      const hint = pool.querySelector(".drop-hint");
-      if (hint) hint.remove();
-
       pool.appendChild(createCard(name));
-
-      // вернуть подсказку обратно (чтобы всегда была видна)
-      const newHint = document.createElement("div");
-      newHint.className = "drop-hint";
-      newHint.innerHTML = "⬇️ Перетащи карточку обратно сюда";
-      pool.appendChild(newHint);
     }
   });
+
+  // --- Подсказка (drop-hint) ---
+  pool.classList.add("drop-area-visible");
+  if (!pool.querySelector(".drop-hint")) {
+    const hint = document.createElement("div");
+    hint.className = "drop-hint";
+    hint.textContent = t("dropHint");
+    pool.appendChild(hint);
+  }
 }
+
 
 
 
