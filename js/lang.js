@@ -3,34 +3,34 @@
 
 export const TEXTS = {
   base: {
-    appTitle: "Угадай имена по эмодзи",
-    openHint: "Подсказка",
-    win1Title: "Шаг 1. Введите имена и выберите эмодзи",
-    win1Note: "Введите имена (можно меньше 10). Эмодзи закрепляется за именем.",
-    chooseEmoji: "Выберите эмодзи",
-    hintTitle: "Подсказка",
-    hintText: "Введите имена и выберите для них эмодзи. Затем попробуйте вспомнить имена по эмодзи.",
-    accept: "Принять",
-    win2Title: "Шаг 2. Сопоставьте имена по эмодзи",
-    check: "Проверить",
-    back: "Назад",
-    close: "Закрыть",
-    dropHint: "Перетащи!!! карточку обратно сюдаЦЦЦЦЦЦ",
-    allCorrectTitle: "Круто!",
-    allCorrectText: "Все ответы верные 🎉",
-    needOnePair: "Пожалуйста, введи хотя бы одно имя с эмодзи!!!",
-    duplicateNames: "Каждое имя должно быть только у одного человека 😊 Проверь, нет ли одинаковых имён.Если есть тёзки — добавь первую букву фамилии, чтобы отличить!",
-    someWrongTitle: "Есть ошибки",
-    someWrongText: "Проверьте подсвеченные строки. Правильные имена показаны рядом.",
+    appTitle: "Guess the names based on emoji",
+    openHint: "Hint",
+    win1Title: "Step 1. Enter names and choose emojis",
+    win1Note: "Enter names (you can enter fewer than 10). Each emoji is assigned to a name.",
+    chooseEmoji: "Choose an emoji",
+    hintTitle: "Hint",
+    hintText: "Enter names and choose emojis for them. Then try to recall the names from the emojis.",
+    accept: "Accept",
+    win2Title: "Step 2. Match the names to the emojis",
+    check: "Check",
+    back: "Back",
+    close: "Close",
+    dropHint: "Drag the card back here",
+    allCorrectTitle: "Cool!",
+    allCorrectText: "All answers are correct 🎉",
+    needOnePair: "Please, enter at least one name with emoji!!!",
+    duplicateNames: "Each name should belong to only one person 😊 Check if there are any duplicates. If there are namesakes, add the first letter of the surname to tell them apart!",
+    someWrongTitle: "There are mistakes",
+    someWrongText: "Check the highlighted rows. The correct names are shown next to them.",
     modalHintBodySetup: `
-      Введите имена и выберите для них эмодзи.<br>
-      Затем, во втором окне, перетаскивайте карточки имён к картинкам-эмодзи.
+      Enter names and choose emojis for them.<br>
+      Then, in the second window, drag the name cards to the emoji pictures.
     `,
     modalHintBodyQuizIntro: `
-      <p><b>Подсказка:</b> вот, что вы вводили в начале:</p>
+      <p><b>Hint:</b> here’s what you entered at the start:</p>
     `,
     modalHintBodyQuizOutro: `
-      <p style="font-size:14px;opacity:.7;">Перетащи карточку с именем к соответствующему эмодзи.</p>
+      <p style="font-size:14px;opacity:.7;">Drag the name card to the corresponding emoji.</p>
     `,
   },
 };
