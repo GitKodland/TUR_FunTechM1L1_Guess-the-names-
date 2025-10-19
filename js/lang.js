@@ -3,34 +3,34 @@
 
 export const TEXTS = {
   base: {
-    appTitle: "Guess the names based on emoji",
-    openHint: "Hint",
-    win1Title: "Step 1. Enter names and choose emojis",
-    win1Note: "Enter names (you can enter fewer than 10). Each emoji is assigned to a name.",
-    chooseEmoji: "Choose an emoji",
-    hintTitle: "Hint",
-    hintText: "Enter names and choose emojis for them. Then try to recall the names from the emojis.",
-    accept: "Accept",
-    win2Title: "Step 2. Match the names to the emojis",
-    check: "Check",
-    back: "Back",
-    close: "Close",
-    dropHint: "Drag the card back here",
-    allCorrectTitle: "Cool!",
-    allCorrectText: "All answers are correct 🎉",
-    needOnePair: "Please, enter at least one name with emoji!!!",
-    duplicateNames: "Each name should belong to only one person 😊 Check if there are any duplicates. If there are namesakes, add the first letter of the surname to tell them apart!",
-    someWrongTitle: "There are mistakes",
-    someWrongText: "Check the highlighted rows. The correct names are shown next to them.",
+    appTitle: "İfadeye göre ismi tahmin edin",
+    openHint: "İpucu",
+    win1Title: "Adım 1. İsimlerini girin ve ifadeleri seçin",
+    win1Note: "İsimleri girin (10'dan daha az girebilirsiniz). Her ifade bir isme atanmıştır.",
+    chooseEmoji: "Bir ifade seçin",
+    hintTitle: "İpucu",
+    hintText: "İsimleri girin ve onlara ifadeler seçin. Sonrasında ifadelerden isimleri hatırlamaya çalışın.",
+    accept: "Kabul Et",
+    win2Title: "Adım 2. İsimleri ifadeler ile eşleştirin",
+    check: "Kontrol Et",
+    back: "Geri",
+    close: "Kapat",
+    dropHint: "Kartı tekrar buraya sürükleyin",
+    allCorrectTitle: "Harika!",
+    allCorrectText: "Tüm cevaplar doğru 🎉",
+    needOnePair: "Lütfen, en azından bir ifade ile isim girin!!!",
+    duplicateNames: "Her isim sadece bir kişiye ait olmalıdır 😊 Fazlalık varsa kontrol edin. Eğer aynı ismi taşıyan kişiler varsa, soyadlarının ilk harflerini ayrım yapmak için ekleyin!",
+    someWrongTitle: "Yanlışlar var",
+    someWrongText: "Vurgulanan satırları kontrol edin. Doğru isimler yanlarında gösterilmiştir.",
     modalHintBodySetup: `
-      Enter names and choose emojis for them.<br>
-      Then, in the second window, drag the name cards to the emoji pictures.
+      İsimleri girin ve onlara ifadeler seçin.<br>
+      Ardından, ikinci pencerede, isim kartlarını ifade resimlerine sürükleyin.
     `,
     modalHintBodyQuizIntro: `
-      <p><b>Hint:</b> here’s what you entered at the start:</p>
+      <p><b>İpucu:</b> İştei, başlangıçta yaptığınız girişler:</p>
     `,
     modalHintBodyQuizOutro: `
-      <p style="font-size:14px;opacity:.7;">Drag the name card to the corresponding emoji.</p>
+      <p style="font-size:14px;opacity:.7;">İsim kartlarını, karşılık gelen ifadelere sürükleyin.</p>
     `,
   },
 };
