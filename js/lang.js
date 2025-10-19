@@ -3,13 +3,13 @@
 
 export const TEXTS = {
   base: {
-    appTitle: "İfadeye göre ismi tahmin edin",
+    appTitle: "İfadeye göre isimleri tahmin edin",
     openHint: "İpucu",
     win1Title: "Adım 1. İsimlerini girin ve ifadeleri seçin",
     win1Note: "İsimleri girin (10'dan daha az girebilirsiniz). Her ifade bir isme atanmıştır.",
     chooseEmoji: "Bir ifade seçin",
     hintTitle: "İpucu",
-    hintText: "İsimleri girin ve onlara ifadeler seçin. Sonrasında ifadelerden isimleri hatırlamaya çalışın.",
+    hintText: "İsimleri girin ve karşılık gelecek ifadeler seçin. Sonrasında ifadelerden isimleri hatırlamaya çalışın.",
     accept: "Kabul Et",
     win2Title: "Adım 2. İsimleri ifadeler ile eşleştirin",
     check: "Kontrol Et",
@@ -21,13 +21,13 @@ export const TEXTS = {
     needOnePair: "Lütfen, en azından bir ifade ile isim girin!!!",
     duplicateNames: "Her isim sadece bir kişiye ait olmalıdır 😊 Fazlalık varsa kontrol edin. Eğer aynı ismi taşıyan kişiler varsa, soyadlarının ilk harflerini ayrım yapmak için ekleyin!",
     someWrongTitle: "Yanlışlar var",
-    someWrongText: "Vurgulanan satırları kontrol edin. Doğru isimler yanlarında gösterilmiştir.",
+    someWrongText: "Kırmızı olanları kontrol edin. Doğru isimler yanlarında gösterilmiştir.",
     modalHintBodySetup: `
       İsimleri girin ve onlara ifadeler seçin.<br>
       Ardından, ikinci pencerede, isim kartlarını ifade resimlerine sürükleyin.
     `,
     modalHintBodyQuizIntro: `
-      <p><b>İpucu:</b> İştei, başlangıçta yaptığınız girişler:</p>
+      <p><b>İpucu:</b> İşte, başlangıçta yaptığınız girişler:</p>
     `,
     modalHintBodyQuizOutro: `
       <p style="font-size:14px;opacity:.7;">İsim kartlarını, karşılık gelen ifadelere sürükleyin.</p>
